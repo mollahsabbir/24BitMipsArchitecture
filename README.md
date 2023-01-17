@@ -1,6 +1,6 @@
-# Computer Architecture (20 bit)
+# Computer Architecture (17 bit)
 
-This is a 20 bit computer architecture that supports 32 unique instructions. The project also includes an assembler written in Python.
+This is a 17 bit computer architecture that supports 32 unique instructions. The project also includes an assembler written in Python.
 
 ## Registers
 The register file will contain 32 registers, among which the first one will be a constant value of 0.
@@ -10,17 +10,17 @@ The registers will be named R0,R1,...,R31 and shall be used with these names in 
 ## R type instructions
 |Opcode |Register 1 ($1) |Register 1 ($2)  |Register 1 ($3) |
 ---| --- | ---| ---|
-5 bit | 5 bit | 5 bit | 5 bit|
+5 bit | 4 bit | 4 bit | 4 bit|
 
 ## I type instructions
 |Opcode |Register 1 ($1) |Register 1 ($2)  |Immediate (imm) |
 ---| --- | ---| ---|
-5 bit | 5 bit | 5 bit | 5 bit|
+5 bit | 4 bit | 4 bit | 4 bit|
 
 ## J type instructions
 |Opcode |Address |
 ---| --- |
-5 bit | 15 bit|
+5 bit | 12 bit|
 
 ## ISA
 
