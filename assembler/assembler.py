@@ -11,8 +11,8 @@ def main():
     with open(asm_code_file, "r") as asm_code_lines:
         code_converter: CodeConverter = CodeConverter()
         try:
-            binary, hexa = code_converter.convert(asm_code_lines)
-            print(binary, hexa)
+            machine = code_converter.convert(asm_code_lines)
+            print(machine)
         except InvalidOpcodeException as ex:
             print(ex)
         

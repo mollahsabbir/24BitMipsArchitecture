@@ -22,13 +22,13 @@ class InvalidRegisterException(Exception):
     
 class CodeConverter:
     
-    def convert(self, asm_code_lines:list[str]) -> tuple[list[str]]:
+    def convert(self, asm_code_lines:list[str]) -> list[str]:
         cleaned_asm = self._clean_assembly(asm_code_lines)
         machine_code = self._assembly_to_machine(cleaned_asm, assembly_details)
         
-        return (machine_code, ["placeholder"])
+        return machine_code
         
-    def _clean_assembly(self, asm_code_lines:list[str])->list[str]:
+    def _clean_assembly(self, asm_code_lines:list[str])->list[list[str]]:
         cleaned_asm_lines: list[str] = []
         for line in asm_code_lines:
             head, sep, tail = line.partition(COMMENT_SEP)
@@ -47,7 +47,7 @@ class CodeConverter:
                 opcode_machine = self._parse_opcode(opcode_asm)
                 structured_params = self._structure_assembly(opcode_asm, params)
                 params_machine = self._params_to_machine(opcode_asm, structured_params)
-                machine_code.append([opcode_machine, params_machine])
+                machine_code.append([opcode_machine, *params_machine])
             else:
                 raise InvalidOpcodeException(opcode_asm)
         
