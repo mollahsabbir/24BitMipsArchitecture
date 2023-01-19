@@ -1,4 +1,3 @@
-from collections import namedtuple
 from enum import Enum
 
 class InstructionType(Enum):
@@ -9,16 +8,23 @@ class InstructionType(Enum):
     PSEUDO_R = 5
     PSEUDO_I = 6
 
-InstructionsDetails = namedtuple('InstructionsDetails',
-                                    [
-                                        'machine_code',
-                                        'instruction_type',
-                                        'ignore_registers_indices',
-                                        'swap_registers_rules',
-                                        'copy_registers_rules',
-                                        'imm_value',
-                                        'pseudo_substitute'
-                                    ])
+class InstructionsDetails:
+    
+    def __init__(self,
+                machine_code: str = None,
+                instruction_type: InstructionType = InstructionType.R,
+                ignore_registers_indices: list[int] = [],
+                swap_registers_rules: list[list[int]] = [],
+                copy_registers_rules: list[list[int]] = [],
+                imm_value: int = None,
+                pseudo_substitute: str = None):
+        self.machine_code = machine_code
+        self.instruction_type = instruction_type
+        self.ignore_registers_indices = ignore_registers_indices
+        self.swap_registers_rules = swap_registers_rules
+        self.copy_registers_rules = copy_registers_rules
+        self.imm_value = imm_value
+        self.pseudo_substitute = pseudo_substitute
 
 assembly_details = {
     "and": InstructionsDetails("00000", InstructionType.R),
@@ -52,7 +58,7 @@ assembly_details = {
     "jc": InstructionsDetails("11100", InstructionType.R, [0,2], [[0,1]]),
     "jz": InstructionsDetails("11101", InstructionType.R, [0,2], [[0,1]]),
     "in": InstructionsDetails("11110", InstructionType.IO, [1,2]),
-    "out": InstructionsDetails(None, InstructionType.IO, [0,2], [[0,1]]),
+    "out": InstructionsDetails("11111", InstructionType.IO, [0,2], [[0,1]]),
     "mov": InstructionsDetails(None, InstructionType.PSEUDO_R, [2], pseudo_substitute="add"),
     "lwi": InstructionsDetails(None, InstructionType.PSEUDO_I, [1], pseudo_substitute="addi"),
     "inc": InstructionsDetails(None, InstructionType.PSEUDO_I, [1], copy_registers_rules=[[0,1]] , pseudo_substitute="addi",imm_value=1),
