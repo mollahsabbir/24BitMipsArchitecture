@@ -53,19 +53,19 @@ The registers will be named R0,R1,...,R31 and shall be used with these names in 
 |set if less than|11000|slt $1,$2,$3|slt $1,$2,$3|if($2<$3)$1=1 else $1=0|
 |set if greater|11001|sgt $1,$2,$3|sgt $1,$2,$3|if($2>$3)$1=1 else $1=0|
 |jump|11010|jump imm|jump imm|goto imm|
-|jump register|11011|jumpr $1|jumpr $1,R0,R0|goto $1|
-|jump if carry|11100|jc $1|jc $1,R0,R0|if(alu_carry==1) goto $1|
-|jump if zero|11101|jz $1|jz $1,R0,R0|if(alu_output==0) goto $1|
+|jump register|11011|jumpr $1|jumpr R0,$1,R0|goto $1|
+|jump if carry|11100|jc $1|jc R0,$1,R0|if(alu_carry==1) goto $1|
+|jump if zero|11101|jz $1|jz R0,$1,R0|if(alu_output==0) goto $1|
 |input|11110|in $1|in $1,R0,R0|$1=user_input|
-|output|11111|out $1|out $1,R0,R0|display $1|
+|output|11111|out $1|out R0,$1,R0|display $1|
 
 # Pseudo Instructions
 The assembler will support all the machine instructions along with the pseudo instructions listed below. These pseudo instructions have been provided to add some syntactic sugar to the language. The assembler will substitute these instructions with equivalent machine instructions.
 ## These instructions are provided by the assembler
 |Instruction| Assembly  |Machine |Meaning |
 --- | --- | ---| ---|
-|mov|move $1, $2|add $1,$2,R0|$1=$2|
-load immediate|lwi $1, imm|lwi $1,R0,imm|$1=imm|
+|mov|mov $1, $2|add $1,$2,R0|$1=$2|
+load immediate|lwi $1, imm|addi $1,R0,imm|$1=imm|
 increment|inc $1|addi $1,$1,1|$1=$1+1|
 decrement|dec $1|subi $1,$1,1|$1=$1-1|
 |no operation|nop|AND R0,R0,R0|-|
